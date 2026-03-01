@@ -13,7 +13,7 @@ Su objetivo es:
 
 # ¿Qué es lo que he hecho con CartPole?
 ```bash
-import gymnasum as gym
+import gymnasium as gym
 import time
 env = gym.make("CartPole-v1", render_mode="human")
 
@@ -39,31 +39,45 @@ env.close()
    ```bash
    env = gym.make("CartPole-v1", render_mode="human")
    ```
-   - **[gym.make("Cartpole-v1")]** crea el entorno que se va a usar.
-   - **[gym]** es un paquete que contiene muchos entornos listos de refuerzo.
-   - **["CartPole-v1"]** es el entorno que se quiere crear.
-   - **[render_mode="human"]** se encarga de la simulación por pantalla.
+   - **gym.make("Cartpole-v1")** crea el entorno que se va a usar.
+   - **gym** es un paquete que contiene muchos entornos listos de refuerzo.
+   - **"CartPole-v1"** es el entorno que se quiere crear.
+   - **render_mode="human"** se encarga de la simulación por pantalla.
    
 2. **Reset del entorno**
    ```bash
    state, info = env.reset()
    ```
    - Inicializa el estado inicial, que es generado por el entorno (posición del carrito, ángulo, velocidades)
-   - **[info]** contiende datos extra no necesarios.
+   - **info** contiende datos extra no necesarios.
    
 3. **Elección de acción**
    ```bash
    action = env.action_space.sample()  # acción aleatoria
    ```
-   -
+   - Decide la acción de manera aleatoria, 0 indica mover a la izquierda y 1 mover a la derecha.
+     
 4. **Avanzar un paso**
    ```bash
    state, reward, terminated, truncated, info = env.step(action)
    ```
+   - **.step(action)** hace todo lo que antes te expliqué:
+
+      1. Aplica la acción al entorno.
+      
+      2. Actualiza el estado.
+      
+      3. Devuelve la recompensa automáticamente (+1 si el palo sigue en equilibrio, 0 si se cae).
+      
+      4. Indica si el episodio terminó (terminated) o se truncó por límite de pasos (truncated).
+      
+      Aquí no decides la recompensa, Gym lo hace por ti según las reglas del CartPole.
+   
 5. **Reset si termina**
    ```bash
    if terminated or truncated:
     print("Episodio terminado")
     state, info = env.reset()
    ```
+   - Si el palo se cae o se llega al límite de pasos, el entorno se reinicia automáticamente.
    

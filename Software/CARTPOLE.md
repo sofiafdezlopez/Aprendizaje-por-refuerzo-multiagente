@@ -1,4 +1,4 @@
-# ¿Qué es Cartpole?
+# ¿Qué es CartPole?
 Es un entorno clásico de aprendizaje por refuerzo, es considerado un entorno sencillo y estándar para aprender como funcionan los algoritmos de refuerzo debido a que es fácil de simular y visualizar.
 
 Su objetivo es:
@@ -11,11 +11,11 @@ Su objetivo es:
 - Permite probar algoritmos sin tener que complicarse con entornos 3D o robots reales.
 - Ayuda a entnder como funciona el método de refuerzo entre un agente y la recompensa.
 
-# ¿Qué es lo que he hecho con Cartpole?
+# ¿Qué es lo que he hecho con CartPole?
 ```bash
 import gymnasum as gym
 import time
-env = gym.make("CartPole-v1")
+env = gym.make("CartPole-v1", render_mode="human")
 
 state, info = env.reset()
 print("Estado inicial:", state)
@@ -34,3 +34,36 @@ for step in range(10):
 
 env.close()
 ```
+
+1. **Creación del entorno**
+   ```bash
+   env = gym.make("CartPole-v1", render_mode="human")
+   ```
+   - **[gym.make("Cartpole-v1")]** crea el entorno que se va a usar.
+   - **[gym]** es un paquete que contiene muchos entornos listos de refuerzo.
+   - **["CartPole-v1"]** es el entorno que se quiere crear.
+   - **[render_mode="human"]** se encarga de la simulación por pantalla.
+   
+2. **Reset del entorno**
+   ```bash
+   state, info = env.reset()
+   ```
+   - Inicializa el estado inicial, que es generado por el entorno (posición del carrito, ángulo, velocidades)
+   - **[info]** contiende datos extra no necesarios.
+   
+3. **Elección de acción**
+   ```bash
+   action = env.action_space.sample()  # acción aleatoria
+   ```
+   -
+4. **Avanzar un paso**
+   ```bash
+   state, reward, terminated, truncated, info = env.step(action)
+   ```
+5. **Reset si termina**
+   ```bash
+   if terminated or truncated:
+    print("Episodio terminado")
+    state, info = env.reset()
+   ```
+   

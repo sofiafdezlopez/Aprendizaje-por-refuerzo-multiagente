@@ -25,11 +25,15 @@ docker build -t refuerzo_multiagente .
 ```
   2. **Ejecutar el contenedor:**
 ```bash
-docker run -it --rm refuerzo_multiagente
+docker run -it \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v ~/proyecto_refuerzo:/app \
+    refuerzo_multiagente
 ```
-  3. **(Opcional) Mapear carpetas para acceder al código desde fuera del contenedor:**
+  3. **Guardar modelos de entrenamiento:**
 ```bash
-docker run -it --rm -v $(pwd)/software:/app/software refuerzo_multiagente
+model.save("/app/predator_model.zip")
 ```
 
 ### Con entorno virtual (venv)
